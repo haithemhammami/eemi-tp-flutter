@@ -140,4 +140,19 @@ class ApiService {
       throw Exception('Erreur: ${response.statusCode}');
     }
   }
+
+  // Chercher un produit
+  Future<List<Product>> searchProducts(String query) async {
+    final response = await http.get(
+      Uri.parse(
+        'https://eemi-886dbcc67fb5.herokuapp.com/products?search=$query',
+      ),
+    );
+    if (response.statusCode == 200) {
+      final List data = jsonDecode(response.body);
+      return data.map((e) => Product.fromJson(e)).toList();
+    } else {
+      throw Exception('Erreur lors de la recherche des produits');
+    }
+  }
 }

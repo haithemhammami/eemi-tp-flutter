@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -16,15 +17,37 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   late Future<List<Product>> _productsFuture;
+  final TextEditingController _searchController = TextEditingController();
+  Timer? _debounce;
 
   @override
   void initState() {
     super.initState();
     _fetchProducts();
+    _searchController.addListener(_onSearchChanged);
   }
 
-  void _fetchProducts() {
-    _productsFuture = ApiService().getAllProducts();
+  @override
+  void dispose() {
+    _searchController.dispose();
+    _debounce?.cancel();
+    super.dispose();
+  }
+
+  void _fetchProducts([String query = '']) {
+    if (query.isEmpty) {
+      _productsFuture = ApiService().getAllProducts();
+    } else {
+      _productsFuture = ApiService().searchProducts(query);
+    }
+    setState(() {});
+  }
+
+  void _onSearchChanged() {
+    if (_debounce?.isActive ?? false) _debounce!.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      _fetchProducts(_searchController.text.trim());
+    });
   }
 
   void _goToCreateProduct() {
@@ -47,6 +70,21 @@ class _HomeScreenState extends State<HomeScreen> {
             tooltip: 'Ajouter un produit',
           ),
         ],
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(56),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: TextField(
+              controller: _searchController,
+              decoration: const InputDecoration(
+                hintText: 'Rechercher un produit...',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(),
+                isDense: true,
+              ),
+            ),
+          ),
+        ),
       ),
       body: FutureBuilder<List<Product>>(
         future: _productsFuture,
