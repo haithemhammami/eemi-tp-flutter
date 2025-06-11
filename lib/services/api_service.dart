@@ -149,8 +149,16 @@ class ApiService {
       ),
     );
     if (response.statusCode == 200) {
-      final List data = jsonDecode(response.body);
-      return data.map((e) => Product.fromJson(e)).toList();
+      final data = jsonDecode(response.body);
+      if (data is List) {
+        return data.map<Product>((e) => Product.fromJson(e)).toList();
+      } else if (data is Map && data.containsKey('rows')) {
+        return (data['rows'] as List)
+            .map<Product>((e) => Product.fromJson(e))
+            .toList();
+      } else {
+        throw Exception('Format de réponse inattendu');
+      }
     } else {
       throw Exception('Erreur lors de la recherche des produits');
     }
