@@ -4,7 +4,7 @@
 
 Développer une application Flutter permettant de **consulter, créer, modifier et supprimer des produits** à l’aide d’une API REST.
 
-Swagger : https://eemi-39b84a24258a.herokuapp.com/api-docs/
+Swagger : https://eemi-886dbcc67fb5.herokuapp.com/api-docs/
 
 ---
 
@@ -12,7 +12,7 @@ Swagger : https://eemi-39b84a24258a.herokuapp.com/api-docs/
 
 ### 1. Liste des produits
 
-- Récupérer la liste des produits via le endpoint : ```GET https://eemi-39b84a24258a.herokuapp.com/products```
+- Récupérer la liste des produits via le endpoint : ```GET https://eemi-886dbcc67fb5.herokuapp.com/products```
 - Afficher chaque produit dans une **liste scrollable**, avec :
     - **Nom** du produit
     - **Image**
@@ -29,14 +29,14 @@ Swagger : https://eemi-39b84a24258a.herokuapp.com/api-docs/
     - `price` : Prix
     - `image` : URL de l’image
 - Validation des champs du formulaire.
-- Envoyer les données via une requête ```POST https://eemi-39b84a24258a.herokuapp.com/products```
+- Envoyer les données via une requête ```POST https://eemi-886dbcc67fb5.herokuapp.com/products```
 
 ---
 
 ### 3. Édition d’un produit
 
 - Au clic sur un produit, rediriger vers un **formulaire** avec les informations du produit.
-- Soumettre les modifications via une requête ```PUT https://eemi-39b84a24258a.herokuapp.com/products/{uuid}```
+- Soumettre les modifications via une requête ```PUT https://eemi-886dbcc67fb5.herokuapp.com/products/{uuid}```
 - Validation des champs du formulaire.
 - Rediriger vers la page de liste des produits.
 
@@ -45,7 +45,7 @@ Swagger : https://eemi-39b84a24258a.herokuapp.com/api-docs/
 ### 4. Suppression d’un produit
 
 - Depuis la liste des produits, ouvrir une modal pour supprimer un produit.
-- Soumettre la suppression via une requête ```DELETE https://eemi-39b84a24258a.herokuapp.com/products/{uuid}```
+- Soumettre la suppression via une requête ```DELETE https://eemi-886dbcc67fb5.herokuapp.com/products/{uuid}```
 - Rediriger vers la page de liste des produits.
 
 ---
@@ -53,7 +53,7 @@ Swagger : https://eemi-39b84a24258a.herokuapp.com/api-docs/
 ### 5. Bonus - Rechercher un produit
 
 - Créer une barre de recherche sur le listing de produits avec un debounce pour éviter de spam l'API.
-- Rechercher via le endpoint : ```GET https://eemi-39b84a24258a.herokuapp.com/products?search={query}```
+- Rechercher via le endpoint : ```GET https://eemi-886dbcc67fb5.herokuapp.com/products?search={query}```
 
 ---
 
